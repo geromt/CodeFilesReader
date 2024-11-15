@@ -1,3 +1,4 @@
+import json
 import os
 import pprint
 
@@ -23,7 +24,14 @@ def find_files_with_extension(path, extension):
                 files_list.append(f)
 
     if files_list:
-        files_found[path] = files_list
+        if path in files_found:
+            files_found[path].append(files_list)
+        else:
+            files_found[path] = files_list
+
+    with open("filesTree.json", 'w') as f:
+        f.write(json.dumps(files_found))
+
     return files_found
 
 
