@@ -29,7 +29,7 @@ def find_files_with_extension(path, extension):
         else:
             files_found[path] = files_list
 
-    with open("filesTree.json", 'w') as f:
+    with open("filesData.json", 'w') as f:
         f.write(json.dumps(files_found))
 
     return files_found
