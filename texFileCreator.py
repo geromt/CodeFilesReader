@@ -16,13 +16,15 @@ def create_tex_file():
     for data in files_data:
         tex_text.append("\\section{" + data["Name"] + "}")
         for file_name in data["Files"]:
-            tex_text.append("\\subsection{" + file_name + "}")
+            tex_text.append("\\subsection{" + file_name.replace("_", "\\_") + "}")
             tex_text.append("\\begin{lstlisting}[language={[Sharp]C}]")
             abspath = os.path.join(data["DirPath"], file_name)
             with open(abspath, 'r') as f:
-                tex_text.append(f.read())
+                text = f.read()
+                tex_text.append(text[3:])
             tex_text.append("\\end{lstlisting}")
 
+    tex_text.append("\\end{document}")
     final_text = str.join("\n", tex_text)
 
     with open("main.tex", "w") as tex_file:
